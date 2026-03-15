@@ -16,7 +16,7 @@ public class TaskController {
 
     @PostMapping("/add")
     public ResponseEntity<TaskDto> add(@RequestBody TaskDto dto) {
-        this.taskService.addTask(dto);
+        this.taskService.saveTask(dto);
         return ResponseEntity.status(201).body(dto);
     }
 

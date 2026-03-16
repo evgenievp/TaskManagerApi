@@ -34,4 +34,15 @@ public class Comment {
         this.text = text;
         this.createdAt = LocalDateTime.now();
     }
+
+    public Comment(String text, User user, Task task) {
+        this.text = text;
+        this.user = user;
+        this.task = task;
+    }
+
+    public Comment(String text, int id) {
+        this.text = text;
+        this.id = id;
+    }
 }

@@ -55,7 +55,7 @@ public class TaskController {
         return ResponseEntity.status(200).body(task);
     }
 
-    @GetMapping("/tasks")
+    @GetMapping("/all")
     public ResponseEntity<Page<TaskDto>> getTasks(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {

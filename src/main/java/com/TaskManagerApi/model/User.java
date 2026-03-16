@@ -9,7 +9,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class User {
     @Size(min = 6)
     @Column(unique = true)
     private String email;
-    @Size(min = 8, max = 40)
+    @Size(min = 8, max = 140)
     @NotNull
     @NotBlank
     private String password;

@@ -4,27 +4,33 @@ import com.TaskManagerApi.dto.UserDto;
 import com.TaskManagerApi.model.User;
 import com.TaskManagerApi.repo.UserRepo;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 
     private UserRepo userRepo;
+    private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
-    // shall fix register and login later
-//    public UserDto register(UserDto dto) {
-//        this.userRepo.save(toUser(dto));
-//        return dto;
-//    }
-//
-//    public String login(UserDto dto) {
-//        User user = userRepo.findByEmail(dto.getEmail())
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//        if (!passwordEncoder.matches(dto.getEmail(), user.getPassword())) {
-//            throw new RuntimeException("Invalid password");
-//        }
-//        return "jwt";
-//    }
+
+
+    public UserDto register(UserDto dto) {
+        this.userRepo.save(toUser(dto));
+        return dto;
+    }
+
+    public String login(UserDto dto) {
+        User user = userRepo.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (!passwordEncoder.matches(dto.getEmail(), user.getPassword())){
+            throw new RuntimeException("Invalid password");
+        }
+        return "jwt";
+    }
 
     public User toUser(UserDto dto) {
         return new User(

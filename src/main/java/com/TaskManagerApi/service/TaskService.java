@@ -1,11 +1,14 @@
 package com.TaskManagerApi.service;
 
-import com.TaskManagerApi.dto.CommentDto;
 import com.TaskManagerApi.dto.TaskDto;
 import com.TaskManagerApi.model.Task;
 import com.TaskManagerApi.repo.TaskRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -24,6 +27,15 @@ public class TaskService {
                 dto.getAuthor(),
                 dto.getStatus()
         );
+    }
+
+    public Page<TaskDto> getTasks(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Task> tasks = taskRepo.findAll(pageable);
+
+        return tasks.map(this::toDto);
     }
 
     public void delete(TaskDto dto) {

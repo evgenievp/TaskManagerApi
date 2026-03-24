@@ -35,16 +35,14 @@ public class UserService {
     public User toUser(UserDto dto) {
         return new User(
                 dto.getUsername(),
-                dto.getEmail(),
-                dto.getPassword()
+                dto.getEmail()
         );
     }
 
     public UserDto toDto(User user) {
         return new UserDto(
                 user.getUsername(),
-                user.getEmail(),
-                user.getPassword()
+                user.getEmail()
         );
     }
 }

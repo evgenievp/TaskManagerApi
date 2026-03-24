@@ -21,9 +21,5 @@ public class UserDto {
     @NotNull
     @NotBlank
     private String email;
-    @NotBlank
-    @NotNull
-    @Size(min = 8)
-    private String password;
 
 }

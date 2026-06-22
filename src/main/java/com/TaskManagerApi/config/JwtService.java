@@ -3,8 +3,7 @@ package com.TaskManagerApi.config;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
-
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Service
@@ -15,7 +14,7 @@ public class JwtService {
     private final long ACCESS_EXPIRATION = 1000 * 60 * 15; // 15 min
     private final long REFRESH_EXPIRATION = 1000 * 60 * 60 * 24 * 7; // 7 days
 
-    private Key getKey() {
+    private SecretKey getKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
@@ -41,11 +40,11 @@ public class JwtService {
 
     public String extractUsername(String token) {
 
-        return Jwts.parserBuilder()
-                .setSigningKey(getKey())
+        return Jwts.parser()
+                .verifyWith(getKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody()
+                .parseSignedClaims(token)
+                .getPayload()
                 .getSubject();
     }
 }
